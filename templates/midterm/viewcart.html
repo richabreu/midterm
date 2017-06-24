@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>View Cart</title>
+</head>
+<body>
+<h1>View Cart</h1>
+
+    <div>
+        <strong>Cart Results for {{selected_user.name}}:</strong><br /><br />	
+        {% if checkout_entry %}
+		<table border="1" cellpadding="5" cellspacing="5">
+            <tr>
+				<th>Media Name</th>
+				<th>Checkout Date</th>
+				<th>Due Date</th>
+				<th>Return Date</th>
+				<th>Overdue Fine</th>
+			</tr>
+			{% for result in checkout_entry %}
+			<tr>
+				<td>{{ result.media_entry.name }} ({{ result.media_entry.media_type.name }})</td>
+				<td>{{ result.checkout_date }}</td>
+				<td>{{ result.due_date }}</td>
+				<td>{{ result.return_date }}</td>
+				<td>${{ result.overdue_fine }}</td>
+            </tr>
+			{% endfor %}
+        </table>
+		{% else %}
+			No entries exist!<br />
+        {% endif %}
+	
+    </div>
+
+<br /><a href="/">Return to index</a>
+</body>
+</html>

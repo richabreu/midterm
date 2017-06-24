@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rich Abreu Midterm</title>
+</head>
+<body>
+<h1>Rich Abreu Midterm</h1>
+
+    <div>
+        <form id="search_filter" method="post" action="/index/">
+            {% csrf_token %}
+			First select a user to impersonate login: 
+			<select name="user" id="query">
+				<option value="">Select</option>
+				{% for result in user_list %}
+				<option value="{{ result.id }}">{{ result.name }}</option>
+				{% endfor %}
+			</select><br /><br />
+            Enter search entry for title, ISBN or topic: (leave blank to view all)<br />
+			<input type="text" size="50" name="query" value="" id="query" />
+            <input type="submit" name="submit" value="Search" />
+            <br />
+        </form>
+
+		<br />
+		{% if selected_user %}
+		<strong>Search Results for {{ selected_user.name }}:</strong><br /><br />
+		{% endif %}
+				
+        {% if user and title_result %}
+        <div>
+			<strong>By Name:</strong><br />
+            <ol>
+            {% for result in title_result %}
+                <li>
+                    <a href="/entry/{{ result.id }}">"{{ result.name }}" ({{ result.media_type.name }})</a> <a href="/addcart/{{ selected_user.id }}/{{ result.id }}">(Add to Cart)</a><br />
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+		
+		{% if user and isbn_result %}
+        <div>
+			<strong>By ISBN:</strong><br />
+            <ol>
+            {% for result in isbn_result %}
+                <li>
+                    <a href="/entry/{{ result.id }}">{{ result.isbn }}: "{{ result.name }}" ({{ result.media_type.name }})</a> <a href="/addcart/{{ selected_user.id }}/{{ result.id }}">(Add to Cart)</a><br />
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+		
+		{% if user and topic_result %}
+        <div>
+			<strong>By Topic:</strong><br />
+            <ol>
+            {% for result in topic_result %}
+                <li>
+                    <a href="/entry/{{ result.id }}">{{ result.media_topic.name }}: "{{ result.name }}" ({{ result.media_type.name }})</a> <a href="/addcart/{{ selected_user.id }}/{{ result.id }}">(Add to Cart)</a><br />
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+		
+		{% if user and subtopic_result %}
+        <div>
+			<strong>By SubTopic:</strong><br />
+            <ol>
+            {% for result in subtopic_result %}
+                <li>
+                    <a href="/entry/{{ result.id }}">{{ result.media_subtopic.name }}: "{{ result.name }}" ({{ result.media_type.name }})</a> <a href="/addcart/{{ selected_user.id }}/{{ result.id }}">(Add to Cart)</a><br />
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+    </div>
+
+{% if selected_user %}
+	<a href="/viewcart/{{ selected_user.id }}">View Cart</a><br />
+{% endif %}
+</body>
+</html>

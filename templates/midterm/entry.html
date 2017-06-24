@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ entry.name }}</title>
+</head>
+<body>
+<h1>{{ entry.name }}</h1>
+
+<table>
+<tr>
+	<td><img src='{{ entry.picture }}'></td>
+	<td valign=top>
+		<h3>Title: {{ entry.name }}</h3>
+		<h3>Media Type: {{ entry.media_type.name }}</h3>
+		<h3>ISBN: {{ entry.isbn }}</h3>
+		<h3>Topic: {{ entry.media_topic.name }}</h3>
+		<h3>SubTopic: {{ entry.media_subtopic.name }}</h3>
+	</td>
+</tr>
+</table>
+
+<br /><a href="/">Return to index</a>
+</body>
+</html>

@@ -19,3 +19,7 @@ python manage.py migrate
 
 4. Populate DB:
 python populate_midterm.py
+
+5. Go to http://localhost:8000/index/
+
+I got the DB population, search and viewing of content from the DB working. But I couldn't get new entries added to the shopping cart. I kept having trouble writing to the date fields and gave up after numerous attempts.
